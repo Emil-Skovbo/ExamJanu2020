@@ -1,7 +1,7 @@
 package facades;
 
 import utils.EMF_Creator;
-import entities.RenameMe;
+import entities.Driver;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
@@ -20,7 +20,7 @@ import utils.EMF_Creator.Strategy;
 public class FacadeExampleTest {
 
     private static EntityManagerFactory emf;
-    private static FacadeExample facade;
+    private static MultiFacade facade;
 
     public FacadeExampleTest() {
     }
@@ -33,7 +33,7 @@ public class FacadeExampleTest {
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
-        facade = FacadeExample.getFacadeExample(emf);
+        facade = MultiFacade.getFacadeExample(emf);
     }
 
     /*   **** HINT **** 
@@ -45,7 +45,7 @@ public class FacadeExampleTest {
     @BeforeAll
     public static void setUpClassV2() {
        emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST,Strategy.DROP_AND_CREATE);
-       facade = FacadeExample.getFacadeExample(emf);
+       facade = MultiFacade.getFacadeExample(emf);
     }
 
     @AfterAll
@@ -55,20 +55,20 @@ public class FacadeExampleTest {
 
     // Setup the DataBase in a known state BEFORE EACH TEST
     //TODO -- Make sure to change the script below to use YOUR OWN entity class
-    @BeforeEach
-    public void setUp() {
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-            em.persist(new RenameMe("Some txt", "More text"));
-            em.persist(new RenameMe("aaa", "bbb"));
-
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
-    }
+//    @BeforeEach
+//    public void setUp() {
+//        EntityManager em = emf.createEntityManager();
+//        try {
+//            em.getTransaction().begin();
+//            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
+//            em.persist(new Driver("Some txt", "More text"));
+//            em.persist(new Driver("aaa", "bbb"));
+//
+//            em.getTransaction().commit();
+//        } finally {
+//            em.close();
+//        }
+//    }
 
     @AfterEach
     public void tearDown() {
@@ -76,9 +76,9 @@ public class FacadeExampleTest {
     }
 
     // TODO: Delete or change this method 
-    @Test
-    public void testAFacadeMethod() {
-        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
-    }
+//    @Test
+//    public void testAFacadeMethod() {
+//        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
+//    }
 
 }
