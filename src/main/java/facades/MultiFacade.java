@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -43,11 +44,10 @@ public class MultiFacade {
         return emf.createEntityManager();
     }
 
-    //TODO Remove/Change this before use
     public long getDriverCount() {
         EntityManager em = emf.createEntityManager();
         try {
-            long renameMeCount = (long) em.createQuery("SELECT COUNT(r) FROM Driver r").getSingleResult();
+            long renameMeCount = (long) em.createQuery("SELECT COUNT(r) FROM DRIVER r").getSingleResult();
             return renameMeCount;
         } finally {
             em.close();
@@ -90,11 +90,24 @@ public class MultiFacade {
 //        return gson.toJson(OriRec);
 //
 //    }
-    public Delivery getDeloveryById(int id) {
+    public Delivery getDeloveryById(long id) {
         EntityManager em = getEntityManager();
         try {
             TypedQuery<Delivery> query //CustomRecipe
                     = em.createNamedQuery("Select D from Delivery D where D.id =:id", Delivery.class);
+            return query.setParameter("id", id).getSingleResult();
+
+        } finally {
+            em.close();
+
+        }
+    }
+
+    public Driver getDriverById(long id) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Driver> query 
+                    = em.createNamedQuery("Select D from DRIVER D where D.id =:id", Driver.class);
             return query.setParameter("id", id).getSingleResult();
 
         } finally {
@@ -131,7 +144,7 @@ public class MultiFacade {
         System.out.println(deletedCargo);
     }
 
-    public void deleteDriver(int id) {
+    public void deleteDriver(long id) {
         EntityManager em = emf.createEntityManager();
         Driver driver = em.find(Driver.class, id);
         Driver deletedDriver = driver;

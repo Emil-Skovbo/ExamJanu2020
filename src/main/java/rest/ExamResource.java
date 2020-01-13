@@ -3,12 +3,18 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import entities.Delivery;
+import entities.Driver;
 import entities.Truck;
 import utils.EMF_Creator;
 import facades.MultiFacade;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -26,6 +32,7 @@ public class ExamResource {
             EMF_Creator.Strategy.CREATE);
     private static final MultiFacade FACADE = MultiFacade.getFacadeExample(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -38,7 +45,7 @@ public class ExamResource {
     @Produces({MediaType.APPLICATION_JSON})
     public String getDriverCount() {
         long count = FACADE.getDriverCount();
-        return "{\"count\":" + count + "}";  //Done manually so no need for a DTO
+        return "{\"count\":" + count + "}";
     }
 
     @Path("Truck")
@@ -120,71 +127,48 @@ public class ExamResource {
 //        return GSON.toJson("count : " + p);
 //    }
 //
-//    @PUT
-//        @Consumes(MediaType.APPLICATION_JSON)
-//        @Produces(MediaType.APPLICATION_JSON)
-//        @Path("{id}")
-//        @Operation(summary = "Get person by id",
-//                tags = {"persons"},
-//                responses = {
-//                    @ApiResponse(
-//                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class))),
-//                    @ApiResponse(responseCode = "200", description = "All persons"),
-//                    @ApiResponse(responseCode = "404", description = "Persons not found")})
-//        public String editPerson(String personAsJson, @PathParam("id") int id) {
-//
-//        Person pOrignal = FACADE.getPersonByID(id);
-//        Person NewPersonVal = GSON.fromJson(personAsJson, Person
-//
-//.class  
-//
-//
-//);
-//        pOrignal.setFirstName(NewPersonVal.getFirstName());
-//        //pOrignal.setPhone(NewPersonVal.getPhone());
-//        pOrignal.setAddress(NewPersonVal.getAddress());
-//
-//        // makes that the value return is on a good json format
-//        return GSON.toJson(pOrignal);
-//    }
-//
-//    @POST
-//        @Consumes(MediaType.APPLICATION_JSON)
-//        @Produces(MediaType.APPLICATION_JSON)
-//        @Operation(summary = "Add a person",
-//                tags = {"persons"},
-//                responses = {
-//                    @ApiResponse(
-//                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class))),
-//                    @ApiResponse(responseCode = "200", description = "All persons"),
-//                    @ApiResponse(responseCode = "404", description = "Persons not found")})
-//        public String addPerson(String personAsJson) {
-//        PersonDTO personNew = GSON.fromJson(personAsJson, PersonDTO
-//
-//.class  
-//
-//
-//);
-//        PersonDTO p = FACADE.addPerson(personNew);
-//        return GSON.toJson(p);
-//    }
-//
-//    //Delete er ikke testet endnu - 
-//    @DELETE
-//        @Produces({MediaType.APPLICATION_JSON})
-//        @Consumes({MediaType.APPLICATION_JSON})
-//        @Path("{id}")
-//        @Operation(summary = "Delete a person",
-//                tags = {"persons"},
-//                responses = {
-//                    @ApiResponse(
-//                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class))),
-//                    @ApiResponse(responseCode = "200", description = "All persons"),
-//                    @ApiResponse(responseCode = "404", description = "Persons not found")})
-//        public String deletePerson(@PathParam("id") int id) {
-//        Person p = FACADE.getPersonByID(id);
-//        int id1 = p.getId();
-//        FACADE.deletePerson(id1);
-//        return "{}";
-//    }
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("put/{id}")
+    public String editDriver(String driverAsJson, @PathParam("id") long id) {
+
+        Driver Orignal = FACADE.getDriverById(id);
+        Driver newDriver = GSON.fromJson(driverAsJson, Driver.class
+        );
+        Orignal.setName(newDriver.getName());
+        //pOrignal.setPhone(NewPersonVal.getPhone());
+        Orignal.setTruck(newDriver.getTruck());
+
+        // makes that the value return is on a good json format
+        return GSON.toJson(Orignal);
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("addroute")
+    public String addCustomRecipe(String recAsJson) {
+        //CustomRecipe cNew = gson.fromJson(recAsJson, CustomRecipe.class);
+        EntityManager em = EMF.createEntityManager();
+        try {
+            em.getTransaction().begin();
+         //   em.persist(cNew);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return gson.toJson(recAsJson);
+    }
+
+    @DELETE
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Path("delete/{id}")
+    public String deletePerson(@PathParam("id") long id) {
+        Driver driver = FACADE.getDriverById(id);
+        long id1 = driver.getId();
+        FACADE.deleteDriver(id1);
+        return "{}";
+    }
 }
