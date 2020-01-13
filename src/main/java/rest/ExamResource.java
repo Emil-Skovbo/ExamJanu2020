@@ -32,8 +32,7 @@ public class ExamResource {
             EMF_Creator.Strategy.CREATE);
     private static final MultiFacade FACADE = MultiFacade.getFacadeExample(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
+   
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String demo() {
@@ -64,13 +63,6 @@ public class ExamResource {
         return GSON.toJson(p);
     }
 
-//    @Path("/get/phone{phone}")
-//    @GET
-//    @Produces({MediaType.APPLICATION_JSON})
-//    public String getPersonByPhone(@PathParam("phone") int phone) {
-//        Person p = FACADE.getPersonByPhone(phone);
-//        return GSON.toJson(FACADE.makeDTO(p.getId()));
-//    }
     @Path("{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -158,7 +150,7 @@ public class ExamResource {
         } finally {
             em.close();
         }
-        return gson.toJson(recAsJson);
+        return GSON.toJson(recAsJson);
     }
 
     @DELETE
