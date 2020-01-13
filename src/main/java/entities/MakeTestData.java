@@ -11,7 +11,7 @@ import javax.persistence.Persistence;
 
 /**
  *
- * @author fskn
+ * 
  */
 public class MakeTestData {
 
@@ -53,29 +53,6 @@ public class MakeTestData {
         } finally {
             em.close();
         }
-
-//        RegisterFacade facade = RegisterFacade.getRegisterFacade(emf);
-//        System.out.println("Person with phone__________");
-//        System.out.println(facade.getPersonByPhone(12345678));
-//        System.out.println("All persons_____________");
-//        System.out.println(facade.getAllPersons().toString());
-//        System.out.println("Person count_________");
-//        System.out.println(facade.getPersonCount());
-//        System.out.println("Add Person -- new person added to allPersons");
-//        System.out.println(facade.getAllPersons().toString());
-//        System.out.println("Specific hobbyCount");
-//        System.out.println(facade.getSpecificHobbyCount("Shopping"));
-//        System.out.println("Get people with hobby");
-//        System.out.println(facade.getPersonsWithSameHobby("Shopping"));
-//        System.out.println("Delete Person");
-//        facade.deletePerson(1);
-//        System.out.println(facade.getAllPersons());
-//        facade.getPersonByID(2);
-//        facade.editPerson(2, "brunhilde");
-//        System.out.println(facade.getAllPersons());
-//        System.out.println(facade.getAllPersonsFromCity("Ishøj"));
-//        System.out.println(facade.getPersonByID(2));
-//        System.out.println(facade.makeDTO(2));
 
     }
 }

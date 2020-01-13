@@ -70,7 +70,7 @@ public class MultiFacade {
         EntityManager em = emf.createEntityManager();
         Driver driver = new Driver(name);
         try {
-            em.getTransaction().begin();
+               em.getTransaction().begin();
             em.persist(driver);
             em.getTransaction().commit();
             return driver;
@@ -79,17 +79,6 @@ public class MultiFacade {
         }
     }
 
-//        public String editCargo(String cRecipeJson, int id) {
-//        CustomRecipe OriRec = getRecipeById(id);
-//        CustomRecipe NewRec = gson.fromJson(cRecipeJson, CustomRecipe.class);
-//        OriRec.setName(NewRec.getName());
-//        OriRec.setPortion_size(NewRec.getPortion_size());
-//        OriRec.setCooking_time(NewRec.getCooking_time());
-//        OriRec.setIngredients(NewRec.getIngredients());
-//        OriRec.setDescription(NewRec.getDescription());
-//        return gson.toJson(OriRec);
-//
-//    }
     public Delivery getDeloveryById(long id) {
         EntityManager em = getEntityManager();
         try {

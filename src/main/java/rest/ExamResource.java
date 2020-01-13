@@ -80,45 +80,6 @@ public class ExamResource {
 
     }
 
-//    @Path("/get/{city}")
-//        @GET
-//        @Produces({MediaType.APPLICATION_JSON})
-//        public String getPersonByCity(@PathParam("city") String city) {
-//        List<Person> p = FACADE.getAllPersonsFromCity(city);
-//        return GSON.toJson(MakePersonDTOList(p));
-//    }
-//
-//    @Path("/get/all/{hobbie}")
-//        @GET
-//        @Produces({MediaType.APPLICATION_JSON})
-//        @Operation(summary = "Get a person by hobby",
-//                tags = {"persons"},
-//                responses = {
-//                    @ApiResponse(
-//                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class))),
-//                    @ApiResponse(responseCode = "200", description = "All persons"),
-//                    @ApiResponse(responseCode = "404", description = "Persons not found")})
-//        public String getPersonByHobby(@PathParam("hobbie") String hobbie) {
-//        List<Person> p = FACADE.getPersonsWithSameHobby(hobbie);
-//        return GSON.toJson(MakePersonDTOList(p));
-//    }
-//
-//    @Path("/get/count/{hobbie}")
-//        @GET
-//        @Produces({MediaType.APPLICATION_JSON})
-//        @Operation(summary = "Get hobby count",
-//                tags = {"persons"},
-//                responses = {
-//                    @ApiResponse(
-//                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class))),
-//                    @ApiResponse(responseCode = "200", description = "All persons"),
-//                    @ApiResponse(responseCode = "404", description = "Persons not found")})
-//        public String getHobbyCount(@PathParam("hobbie") String hobbie) {
-//        int p = FACADE.getSpecificHobbyCount(hobbie);
-//
-//        return GSON.toJson("count : " + p);
-//    }
-//
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
