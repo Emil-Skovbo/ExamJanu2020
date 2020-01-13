@@ -47,8 +47,8 @@ public class MultiFacade {
     public long getDriverCount() {
         EntityManager em = emf.createEntityManager();
         try {
-            long renameMeCount = (long) em.createQuery("SELECT COUNT(r) FROM DRIVER r").getSingleResult();
-            return renameMeCount;
+            long driverCount = (long) em.createQuery("SELECT COUNT(r) FROM Driver r").getSingleResult();
+            return driverCount;
         } finally {
             em.close();
         }
@@ -160,15 +160,17 @@ public class MultiFacade {
     }
 
     public long getTruckAmount() {
-        EntityManager em = emf.createEntityManager(); //CUSTOMRECIPE
+        EntityManager em = emf.createEntityManager();
         try {
-            long userCount = (long) em.createQuery("SELECT COUNT(R) FROM Truck R").getSingleResult();
-            return userCount;
+            long truckCount = (long) em.createQuery("SELECT COUNT(R) FROM Truck R").getSingleResult();
+            return truckCount;
         } finally {
             em.close();
         }
 
     }
+    
+    
 
     public Delivery createDelivery(String fromlocation, String destination, Truck truck) {
         EntityManager em = emf.createEntityManager();

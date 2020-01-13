@@ -48,7 +48,7 @@ public class ExamResource {
         return "{\"count\":" + count + "}";
     }
 
-    @Path("Truck")
+    @Path("truck")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getDriver() {
